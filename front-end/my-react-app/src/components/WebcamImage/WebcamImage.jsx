@@ -1,5 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Webcam from "react-webcam";
+import "./WebcamImage.css"
+
 function dataURItoBlob(dataURI) {
     const byteString = atob(dataURI.split(",")[1]);
     const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
@@ -38,7 +43,7 @@ function WebcamImage() {
                 const blob = dataURItoBlob(img);
                 const formData = new FormData();
                 formData.append("file", blob, "image.jpg");
-                
+
                 try {
                     const res = await fetch("http://0.0.0.0:8000/class", {
                         method: "POST",
@@ -63,31 +68,58 @@ function WebcamImage() {
         <div className="Container">
             {img === null ? (
                 <>
-                    <Webcam
-                        audio={false}
-                        mirrored={true}
-                        height={400}
-                        width={400}
-                        ref={webcamRef}
-                        screenshotFormat="image/jpeg"
-                        videoConstraints={videoConstraints}
-                    />
-                    
+                    <Container>
+                        <Row>
+                            <Col>
+                                <Webcam
+                                    audio={false}
+                                    mirrored={true}
+                                    height={400}
+                                    width={400}
+                                    ref={webcamRef}
+                                    screenshotFormat="image/jpeg"
+                                    videoConstraints={videoConstraints}
+                                    id="my_camera"
+                                />
+                            </Col>
+                            <Col>
+                                {/* <h1>Formal Footwear Detection</h1> */}
+                            </Col>
+                        </Row>
+
+                    </Container>
+
+
                 </>
             ) : (
                 <>
-                    <Webcam
-                        audio={false}
-                        mirrored={true}
-                        height={400}
-                        width={400}
-                        ref={webcamRef}
-                        screenshotFormat="image/jpeg"
-                        videoConstraints={videoConstraints}
-                    />
-                    {/* Add new Img  */}
-                    {predictedImg && <img src={predictedImg.src} alt="predicted" />}
-                    {classimg && <h1>{classimg}</h1>}
+                    <Container>
+                        <Row>
+                            <Col>
+                                <Webcam
+                                    audio={false}
+                                    mirrored={true}
+                                    height={400}
+                                    width={400}
+                                    ref={webcamRef}
+                                    screenshotFormat="image/jpeg"
+                                    videoConstraints={videoConstraints}
+                                    id="my_camera"
+                                />
+                            </Col>
+                            <Col>
+                                {/* Add new Img  */}
+                                {classimg !== "No object detected" && predictedImg && (
+                                    <img src={predictedImg.src} alt="predicted" />
+                                )}
+                                {/* {classimg && <h1>{classimg}</h1>} */}
+                                {classimg && <h1>{classimg}</h1>}
+                            </Col>
+                        </Row>
+
+                    </Container>
+
+
                 </>
             )}
             {/* show classimg */}
