@@ -32,7 +32,7 @@ app.add_middleware(
 
 # load model 
 # path_to_model = './yolov5x.pt'
-path_to_model = './weight/yolov8n_best.pt'
+path_to_model = './weight/yolov8s_best.pt'
 model = YOLO(path_to_model)
 
 
