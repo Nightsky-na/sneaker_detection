@@ -32,7 +32,8 @@ app.add_middleware(
 
 # load model 
 # path_to_model = './yolov5x.pt'
-path_to_model = './weight/yolov8s_best.pt'
+path_to_model = './weight/yolov8n_best.pt'
+# path_to_model = './weight/yolov8s_best.pt'
 model = YOLO(path_to_model)
 
 
@@ -44,6 +45,7 @@ async def predict_image(file: UploadFile = File(...)):
     img = Image.open(BytesIO(contents))
 
     result = model(img)
+    
     boxes = result[0].boxes
     box = boxes[0]  # returns one box
     
@@ -68,22 +70,33 @@ async def predict_image(file: UploadFile = File(...)):
     img = Image.open(BytesIO(contents))
 
     result = model(img)
-    boxes = result[0].boxes
-    box = boxes[0]  # returns one box
-    print(box.cls)
-    res_plotted = result[0].plot()
-    res, im_png = cv2.imencode(".png", res_plotted)
-    encoded = base64.b64encode(im_png)
-    # _, im_png = cv2.imencode(".png", res_plotted)
-    # print(result)
-    # response
-    response_dict = {
-        "Class": result[0].names[int(box.cls)],
-        "Image": encoded.decode("utf-8")
-    }
-    response = JSONResponse(response_dict)
-    # return response
-    return response
+    try:
+        boxes = result[0].boxes
+        box = boxes[0]  # returns one box
+        print(box.cls)
+        res_plotted = result[0].plot()
+        res, im_png = cv2.imencode(".png", res_plotted)
+        encoded = base64.b64encode(im_png)
+        # _, im_png = cv2.imencode(".png", res_plotted)
+        # print(result)
+        # response
+        response_dict = {
+            "Class": result[0].names[int(box.cls)],
+            "Image": encoded.decode("utf-8")
+        }
+        response = JSONResponse(response_dict)
+        # return response
+        return response
+    
+    except:
+        response_dict = {
+            "Class": "No object detected",
+            "Image": ""
+        }
+        
+        response = JSONResponse(response_dict)
+        return response
+
 # RUN 
 # uvicorn app:app --reload
 

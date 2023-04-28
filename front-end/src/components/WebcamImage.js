@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
+import norImage from "../assets/pnor.png";
+
 function dataURItoBlob(dataURI) {
   const byteString = atob(dataURI.split(",")[1]);
   const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
@@ -18,8 +20,11 @@ function WebcamImage() {
   const webcamRef = useRef(null);
 
   const isBoot = classimg === "Boot";
-  const backgroundColor = isBoot ? "green" : "red";
+  const isSandals = classimg === "Sandals";
+  const backgroundColor = isBoot || isSandals ? "green" : "red";
   const resultText = isBoot ? "PASS" : "FAIL";
+
+  const predImg = isBoot || isSandals ? predictedImg : <img src={norImage} style={{height:'400px', width:'400px' }}/>;
 
   const boxStyle = {
     backgroundColor,
@@ -113,9 +118,9 @@ function WebcamImage() {
           {/* Add new Img  */}
         </>
       )}
-      {/* show classimg */}
-      {predictedImg && <img src={predictedImg.src} alt="predicted" />}
+         {predictedImg && <img src={predictedImg.src} alt='Predicted'/>}
       <div style={textStyle}>{classimg && <h1>{classimg}</h1>}</div>
+
       <div style={boxStyle}>
         {resultText && (
           <h1 style={{ color: "white", fontWeight: "bold" }}>{resultText}</h1>
