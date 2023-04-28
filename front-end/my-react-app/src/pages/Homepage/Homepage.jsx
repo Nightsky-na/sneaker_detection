@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 // useCallback, useEffect, useRef, useState
-import WebcamImage from "../../components/WebcamImage/WebcamImage";
+import WebcamImage from "../../components/WebcamImage-old/WebcamImage";
 import "./Homepage.css";
 
 class Homepage extends Component {

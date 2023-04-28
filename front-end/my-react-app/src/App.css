@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+*{
+  font-family: 'Raleway', sans-serif;
+}
+
+.Container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  font-size: 2em;
+}
