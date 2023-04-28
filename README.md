@@ -1,4 +1,4 @@
-# เTะ Detection Project (Sneaker Detection Project)
+# เเTะ Detection Project (Sneaker Detection Project)
 
 This repository contains the source code for a sneaker detection project, completed as part of ITCS498 Special Topics in Computer Science. The project is divided into two main parts: a front-end built using React, and a back-end built using Fast API (Python).
 
